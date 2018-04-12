@@ -1,0 +1,62 @@
+.sidebar {
+    background: #EFF7FF;
+    width: 100%;
+    overflow-y: auto;
+    border-right: solid 1px #ddd;
+}
+
+.brand {
+    border-bottom: solid 1px #ddd;
+    padding: 0.5rem 0;
+}
+.brand a {
+    opacity: 0.9;
+    transition: all 0.2s;
+    color: #FF4500;
+}
+
+.brand a:hover {
+    opacity: 1;
+    text-decoration: none;
+    color: red;
+}
+
+.brand svg {
+    font-size: 2em;
+}
+
+.brand h1 {
+    font-size: 1rem;
+}
+
+.nav-toggle {
+    position:absolute;
+    top: 0;
+    left: 0;
+    padding: 22px 11px;
+    background-color: #FF4500;
+    color: #EFF7FF;
+}
+
+@media (min-width: 768px) {
+    .sidebar {
+        width: 300px;
+        position: fixed;
+        height: 100%;
+    }
+    
+    .main-content {
+        margin-left: 300px;
+    }
+    
+    .brand {
+        padding: 1rem 0;
+    }
+    .brand svg {
+        font-size: 5em;
+    }
+    
+    .brand h1 {
+        font-size: 2.5rem;
+    }
+}

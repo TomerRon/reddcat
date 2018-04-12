@@ -1,0 +1,53 @@
+<div class="container-fluid h-100 p-0">
+    <div class="sidebar">
+      <div class="brand text-center">
+        <a [routerLink]="['/']">
+          <i class="fab fa-reddit d-block mx-auto"></i>
+          <h1 class="m-0">
+            Reddcat
+          </h1>
+        </a>
+      </div>
+      <div [ngClass]="{'d-none d-md-block': this.mobileHide}">
+        <div class="d-flex" style="border-bottom: solid 1px #ddd;">
+          <ng-container *ngIf="_authService.user && _authService.user.type == 'default'; else guestUser">
+              <div class="mx-auto">
+                  <a class="nav-link">{{ _authService.user.username }}</a>
+              </div>
+              <div class="mx-auto">
+                  <a class="nav-link" href="#" (click)="_authService.logOut()">Log out</a>
+              </div>
+          </ng-container>
+          <ng-template #guestUser>
+              <div class="mx-auto">
+                  <a class="nav-link" [routerLink]="['/signup']">Sign up</a>
+              </div>
+              <div class="mx-auto">
+                  <a class="nav-link" [routerLink]="['/login']">Log in</a>
+              </div>
+          </ng-template>
+        </div>
+      </div>
+      <div class="nav-toggle clickable d-block d-md-none" (click)="this.mobileHide = !this.mobileHide">
+        <ng-container *ngIf="this.mobileHide">
+          <span>
+            <i class="fas fa-bars"></i>
+          </span>
+        </ng-container>
+        <ng-container *ngIf="!this.mobileHide">
+          <span>
+            <i class="fas fa-bars" data-fa-transform="rotate-90"></i>
+          </span>
+        </ng-container>
+      </div>
+      <div [ngClass]="{'d-none d-md-block': this.mobileHide}">
+        <rc-usercampaigns></rc-usercampaigns>
+        <rc-settings></rc-settings>
+      </div>
+    </div>
+    <div class="main-content h-100">
+      
+      <router-outlet></router-outlet>
+      
+    </div>
+</div>

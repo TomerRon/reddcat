@@ -1,0 +1,28 @@
+<form id="createCampaignForm" class="text-center text-md-left" [formGroup]="createCampaignForm" (ngSubmit)="createCampaign()" novalidate>
+    <label>New tracker:</label>
+    <input id="createCampaignInput" type="text" placeholder="keywords" name="keywords" formControlName="keywords" required>
+    <small class="form-text text-muted">3 keywords max. separate with commas</small>
+    <button type="submit" style="background: #FF4500;" class="btn text-white d-block mx-auto mt-2" [disabled]="!isValidForm()">Start tracking!</button>
+</form>
+<div class="campaigns-list mt-2">
+    <div class="text-center mb-3"><i class="fab fa-reddit"></i> My Trackers</div>
+    <div *ngFor="let campaign of _campaignService.campaigns | orderBy: 'createdAt'" class="card campaign mb-2">
+        <a class="pt-1 pb-1" [routerLink]="['/campaign/'+campaign.id]">
+            <ng-container *ngIf="campaign.active">
+                <span>
+                    <i class="fas fa-spinner fa-spin"></i>
+                </span>
+            </ng-container>
+            <ng-container *ngIf="!campaign.active">
+                <span>
+                    <i class="fas fa-pause"></i>
+                </span>
+            </ng-container>
+            <span>{{ campaign.keywords }}</span>
+            <div *ngIf="campaign.newCommentsCount > 0" class="badge badge-danger">{{ campaign.newCommentsCount }}</div>
+        </a>
+    </div>
+    <div class="text-center text-muted" *ngIf="!_campaignService.campaigns.length">
+        You have no trackers.
+    </div>
+</div>

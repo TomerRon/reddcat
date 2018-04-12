@@ -1,0 +1,49 @@
+<div class="jumbotron jumbotron-fluid welcome-msg" *ngIf="_campaignService.showWelcomeMsg">
+    <div class="container">
+        <h1 class="display-4">Welcome to Reddcat</h1>
+        <p class="lead">It looks like it's your first time here.</p>
+        <p>Reddcat is your own personal spy that reads every comment posted on reddit. You can use it to see what people say about your brand, get notified when your name is mentioned, or just follow subjects of interest to you.</p>
+        <p>We started you off with some example trackers. Check them out, and then try it out yourself!</p>
+        <div class="lead text-center d-inline-block">
+            <button class="btn btn-primary btn-lg d-block" href="#" role="button" (click)="_campaignService.toggleShowWelcomeMsg()">OK !</button>
+            <span style="font-size:55%;" class="text-muted">Dismiss forever</span>
+        </div>
+    </div>
+</div>
+<div class="container pt-5">
+    <div class="card mb-5">
+        <div class="card-header">My profile</div>
+        <div class="card-body" *ngIf="_authService.user">
+            <p class="m-0" *ngIf="_authService.user.type == 'default'">Logged in as <b>{{_authService.user.username}}</b>.</p>
+            <p class="m-0" *ngIf="_authService.user.type == 'guest'">
+                You are using Reddcat as a Guest user. All features are available to you, but your data may be lost.<br>
+                <a [routerLink]="['/signup']">Sign up</a> to save your trackers and keep them running even when you're offline (you will keep all of your trackers and comments when signing up).
+            </p>
+        </div>
+    </div>
+    <div class="card mb-5">
+        <div class="card-header">My trackers</div>
+        <div class="card-body">
+            <div class="d-flex flex-wrap justify-content-center justify-content-md-start" *ngIf="_campaignService.campaigns.length">
+                <a class="card tracker bg-dark m-3" *ngFor="let campaign of _campaignService.campaigns | orderBy: 'createdAt'" [routerLink]="['/campaign/'+campaign.id]">
+                    <div class="card-header text-center">{{campaign.keywords}}</div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">{{ campaign.newCommentsCount }} new comments</li>
+                        <li class="list-group-item">{{ campaign.commentsCount }} total comments</li>
+                        <li class="list-group-item" *ngIf="campaign.active"><i class="fas fa-spin fa-spinner"></i> Running</li>
+                        <li class="list-group-item" *ngIf="!campaign.active">Stopped</li>
+                        <li class="list-group-item latest" *ngIf="campaign.latestComment"><b>/u/{{ campaign.latestComment.author }}</b>:<br>{{ trunc(campaign.latestComment.body) }}</li>
+                        <li class="list-group-item latest" *ngIf="!campaign.latestComment"> </li>
+                    </ul>
+                </a>
+            </div>
+            <div class="text-center text-muted" *ngIf="!_campaignService.campaigns.length">You have no trackers. Why not create one?</div>
+        </div>
+    </div>
+    <div class="card mb-5">
+        <div class="card-header">About Reddcat</div>
+        <div class="card-body">
+            Reddcat is an open source Node/Angular web app by <a href="https://www.tomerron.com">Tomer Ron</a>.<br>
+            The full source code is available on <a href="https://www.github.com/TomerRon/reddcat">Github</a>.
+        </div>
+</div>

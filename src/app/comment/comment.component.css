@@ -1,0 +1,27 @@
+a {
+    color: inherit;
+}
+
+a:hover {
+    color: inherit;
+}
+
+.card {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+}
+
+.card .card-body {
+    padding: 5px;
+}
+
+.card .card-title a {
+    color: #369;
+}
+
+.card .card-link {
+    color: #888;
+    font-weight: bold;
+    line-height: 1.6em;
+    font-size: 10px;
+}

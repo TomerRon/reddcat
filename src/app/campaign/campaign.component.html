@@ -1,0 +1,79 @@
+<ng-container *ngIf="campaign">
+  <div class="container pt-5">
+    <div class="btn-group d-flex flex-wrap">
+      <ng-container *ngIf="campaign.active">
+        <button type="button" class="btn btn-secondary" (click)="toggleCampaign()">
+          <i class="fas fa-pause"></i> <span class="d-none d-lg-inline">Pause</span>
+        </button>
+      </ng-container>
+      <ng-container *ngIf="!campaign.active">
+        <button type="button" class="btn btn-success" (click)="toggleCampaign()">
+          <i class="fas fa-play"></i> <span class="d-none d-lg-inline">Start</span>
+        </button>
+      </ng-container>
+      <form id="campaignForm" class="flex-grow" [formGroup]="campaignForm" (ngSubmit)="submitForm()">
+        <input id="changeKeywordsInput" class="form-control form-control-lg" name="keywords" formControlName="keywords">
+        <button type="submit" style="visibility:hidden;position:absolute;" [disabled]="!isValidForm()"></button>
+      </form>
+      <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#clearCampaignModal" [disabled]="campaign.comments.length < 1"><i class="fas fa-eraser"></i> <span class="d-inline d-md-none d-lg-inline">Clear</span></button>
+      <button type="button" class="btn btn-primary" (click)="exportCampaign()" [disabled]="campaign.comments.length < 1"><i class="fas fa-save"></i> <span class="d-inline d-md-none d-lg-inline">Export</span></button>
+      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteCampaignModal"><i class="fas fa-trash"></i> <span class="d-inline d-md-none d-lg-inline">Delete</span></button>
+    </div>
+    <div class="modal fade" id="deleteCampaignModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            This will delete the tracker and all comments.<br>
+            Make sure you <span class="link" (click)="exportCampaign()">export</span> your data before doing this.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteCampaign()">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="clearCampaignModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            This will clear all comments.<br>
+            Make sure you <span class="link" (click)="exportCampaign()">export</span> your data before doing this.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="clearCampaign()">Clear</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-container *ngIf="campaign.active">
+      <div class="text-center py-5">
+        <i class="fas fa-spinner fa-spin"></i> tracker is running...
+      </div>
+    </ng-container>
+    <ng-container *ngIf="!campaign.active">
+      <div class="text-center py-5">
+        <i class="fas fa-pause"></i> paused.
+      </div>
+    </ng-container>
+    <ng-container *ngFor="let event of getCommentsAndEvents() | orderBy: 'createdAt' | reverse">
+        <div class="alert alert-primary text-center" *ngIf="event.hasOwnProperty('message')">
+            <b>Event</b>: {{ event.message }}
+        </div>
+        <rc-comment [comment]="event" [isNew]="event.id > campaign.lastSeenCommentId" *ngIf="(!event.hasOwnProperty('message') && event.hasOwnProperty('body'))"></rc-comment>
+    </ng-container>
+  </div>
+</ng-container>

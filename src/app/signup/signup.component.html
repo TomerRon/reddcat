@@ -1,0 +1,23 @@
+<div class="container pt-5">
+    <div class="card">
+        <h3 class="card-header">Sign up</h3>
+        <div class="card-body">
+            <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" novalidate>
+                <div class="alert alert-danger" *ngIf="message">{{ message }}</div>
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" class="form-control" name="username" formControlName="username" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" name="password" formControlName="password" required>
+                </div>
+                <button type="submit" class="btn btn-dark btn-lg w-100" [disabled]="!signupForm.valid">Sign up</button>
+            </form>
+        </div>
+        <div class="card-footer text-muted text-center">
+            <div class="mb-2">Already have an account?</div>
+            <a class="btn btn-dark" [routerLink]="['/login']">Log in</a>
+        </div>
+    </div>
+</div>

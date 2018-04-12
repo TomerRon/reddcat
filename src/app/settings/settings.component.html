@@ -1,0 +1,30 @@
+<div class="settings">
+    <div class="text-center mb-3"><i class="fas fa-cog"></i> Settings</div>
+    <div class="setting w-100 d-inline-block" title="When enabled, your currently viewed tracker will auto-refresh every 5 seconds. Otherwise, it will only refresh when Reddcat is refocused or reloaded.">
+      <span class="d-inline-block align-middle">Auto-refresh tracker</span>
+      <i class="far fa-question-circle align-middle" style="color: #666;"></i>
+      <label class="tgl align-middle float-right">
+        <input type="checkbox" [attr.checked]="_campaignService.autoRefresh ?  'checked' : null" (click)="toggleAutoRefresh()"/>
+        <span class="tgl_body">
+          <span class="tgl_switch"></span>
+          <span class="tgl_track">
+            <span class="tgl_bgd"></span>
+            <span class="tgl_bgd tgl_bgd-negative"></span>
+          </span>
+        </span>
+      </label>
+    </div>
+    <div class="setting w-100 d-inline-block">
+      <span class="d-inline-block align-middle">Show welcome message</span>
+      <label class="tgl align-middle float-right">
+        <input type="checkbox" [checked]="_campaignService.showWelcomeMsg" (click)="toggleShowWelcomeMsg()"/>
+        <span class="tgl_body">
+          <span class="tgl_switch"></span>
+          <span class="tgl_track">
+            <span class="tgl_bgd"></span>
+            <span class="tgl_bgd tgl_bgd-negative"></span>
+          </span>
+        </span>
+      </label>
+    </div>
+</div>

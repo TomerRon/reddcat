@@ -1,0 +1,26 @@
+#createCampaignForm {
+  border-bottom: solid 1px #ddd;
+  padding: 15px;
+}
+
+.campaigns-list {
+  border-bottom: solid 1px #ddd;
+  padding: 15px;
+}
+.campaigns-list .campaign {
+  transition: all 0.2s;
+}
+.campaigns-list .campaign:hover {
+  background: #ccc;
+}
+
+.campaigns-list .campaign svg {
+  width: 40px;
+}
+
+.campaigns-list .campaign a {
+    color: black;
+}
+.campaigns-list .campaign a:hover {
+    text-decoration: none;
+}

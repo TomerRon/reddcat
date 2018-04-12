@@ -1,0 +1,17 @@
+.flex-grow {
+    flex: 1 0 auto;
+}
+
+.btn-group .btn, .btn-group form {
+  margin-top: 5px;
+}
+
+.link {
+    color: rgb(0, 0, 238);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.alert-primary {
+    background-color: #EFF7FF;
+}

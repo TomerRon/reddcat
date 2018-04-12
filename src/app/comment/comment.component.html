@@ -1,0 +1,19 @@
+<div class="card mb-3" *ngIf="comment">
+    <div class="card-body">
+        <div class="card-title">
+            <a href="https://www.reddit.com/u/{{comment.author}}" target="_blank"><b>/u/{{ comment.author }}</b></a>
+            <div class="d-inline-block text-muted" style="font-size:10px;" title="{{ this.dateToWords(comment.createdAt) }}">{{ this.dateToTimeFromNow(comment.createdAt) }}</div>
+            <div *ngIf="isNew" class="badge badge-danger">NEW</div>
+        </div>
+        <h6 class="card-subtitle mb-1 text-muted">
+            <a href="https://www.reddit.com/r/{{comment.subreddit}}" target="_blank">/r/{{comment.subreddit}}</a>:
+            <a href="{{comment.post_link}}" target="_blank">{{comment.post_title}}</a>
+        </h6>
+        <p *ngIf="comment.body.length <= 200" class="card-text mb-1">{{ comment.body }}</p>
+        <p *ngIf="comment.body.length > 200" class="card-text mb-1">
+            {{ opened ? comment.body : trunc(comment.body) }}
+            <button class="btn btn-link p-0" (click)="opened = !opened">{{ opened ? 'Show less' : 'Show more' }}</button>
+        </p>
+        <a href="{{comment.comment_link}}" target="_blank" class="card-link">permalink</a>
+    </div>
+</div>
