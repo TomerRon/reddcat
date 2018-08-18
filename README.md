@@ -23,14 +23,14 @@ cd reddcat
 npm install
 ```
 
-- [Create a reddit application](https://www.reddit.com/prefs/apps/) - it takes 5 seconds, and you will get a client ID and a secret which you will need to fill in the next step.
+- [Create a reddit application](https://old.reddit.com/prefs/apps/) - it takes 5 seconds, and you will get a client ID and a secret which you will need to fill in the next step.
 
 ### Setting it up
 
 Create a file called `.env` in the root folder and set your environment variables:
 
 ```
-$ touch .env
+touch .env
 ```
 ```
 CLIENT_ID=your-reddit-client-id     // get these values from the reddit applications page
